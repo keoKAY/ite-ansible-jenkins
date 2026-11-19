@@ -56,6 +56,6 @@ sudo nginx -s reload
 
 # add SSL 
 echo "Adding https for our website " 
-sudo certbot --nginx -d "${DOMAIN_NAME}" --agree-tos -m lyvanna544@gmail.com --non-intereactive
+sudo certbot --nginx -d "${DOMAIN_NAME}" --agree-tos -m lyvanna544@gmail.com --non-interactive
 
 echo "Congratulation!! " 
