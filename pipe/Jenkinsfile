@@ -4,19 +4,22 @@ pipeline{
         GIT_URL="https://github.com/keoKAY/reactjs-devop8-template"
         IMG_NAME="ansible-react"
         VERSION="v1.0.${env.BUILD_NUMBER}"
-        FULL_IMG="${IMAGE_NAME}:${VERSION}"
+        FULL_IMG="${IMG_NAME}:${VERSION}"
         DOCKERFILE="prod.Dockerfile"
     }
     stages{
         stage("Git Checkout"){
             steps{
-              git "${GIT_URL}"
+            dir('application'){
+                git "${GIT_URL}"
+            }
+              
             }
         }
         stage("Build Image"){
             steps{
                 sh """
-                docker build -t ${FULL_IMG} -f ${DOCKERFILE} . 
+                cd application && docker build -t ${FULL_IMG} -f ${DOCKERFILE} . 
                 """
             }
         }
