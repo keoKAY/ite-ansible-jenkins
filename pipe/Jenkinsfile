@@ -37,12 +37,14 @@ pipeline{
             }
         } 
 
-        // stage("ANS-Deploy"){
-        //     steps{
-        //         sh """
-
-        //         """
-        //     }
-        // } 
+        stage("ANSIBLE-Deploy"){
+            steps{
+                dir('ansible'){
+                    sh """
+                    ansible-playbook playbooks/reactjs-main.yaml -e "new_img=lyvanna544/${FULL_IMG}"
+                    """
+                }
+            }
+        } 
     }
 }

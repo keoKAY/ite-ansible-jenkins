@@ -1,0 +1,11 @@
+services: 
+  reactjs-svc:
+    # update when deploy on the stag-server 
+    # using yq 
+    image: nginx:latest 
+    container_name: reactjs-cont
+    pull_policy: always
+    restart: always  
+    ports: 
+      - 3005:80
+
