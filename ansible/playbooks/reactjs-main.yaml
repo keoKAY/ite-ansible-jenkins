@@ -36,3 +36,16 @@
       command: "docker compose up -d"
       args: 
         chdir: "{{project_dir}}"
+
+    # Config domain name + https 
+    # ansible-react.akasdev.com 3004
+    - name: Generate Reverse Proxy Config and HTTPS 
+      become: true 
+      ansible.builtin.script: ../scripts/auto-add-domain.sh 
+      args:
+        executable: /bin/bash  
+      register: script_result
+
+    - name: Display script output
+      ansible.builtin.debug:
+        var: script_result.stdout_lines
