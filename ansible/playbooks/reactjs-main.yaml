@@ -4,7 +4,8 @@
   hosts: stag-server 
   vars: 
     project_dir: ~/Documents/reactjs-app
-    #new_img: 
+    domain_name: ansible-react.akasdev.com 
+    port: 3004
   tasks: 
     - name: Create Project Directory 
       file: 
@@ -41,7 +42,7 @@
     # ansible-react.akasdev.com 3004
     - name: Generate Reverse Proxy Config and HTTPS 
       become: true 
-      ansible.builtin.script: ../scripts/auto-add-domain.sh 
+      ansible.builtin.script: ../scripts/auto-add-domain.sh {{domain_name}} {{port}}
       args:
         executable: /bin/bash  
       register: script_result

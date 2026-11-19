@@ -3,8 +3,8 @@
 #Usage: This script , auto configure the domain name and https 
 #!/bin/bash
 
-DOMAIN_NAME=$1
-SERVICE_PORT=$2
+DOMAIN_NAME="$1"
+SERVICE_PORT="$2"
 
 
 # check root permission 
