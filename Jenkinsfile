@@ -10,5 +10,13 @@ pipeline{
                 """
             }
         }
+
+        stage("Deploy Spring"){
+            steps{
+                sh """
+                 ansible-playbook playbooks/fileupload-main.yaml
+                """
+            }
+        }
     } 
 }
