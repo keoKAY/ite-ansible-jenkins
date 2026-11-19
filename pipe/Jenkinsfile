@@ -19,7 +19,7 @@ pipeline{
         stage("Build Image"){
             steps{
                 sh """
-                cd application && docker build -t ${FULL_IMG} -f ${DOCKERFILE} . 
+                cd application &&  docker build -t ${FULL_IMG} -f ${DOCKERFILE} . 
                 """
             }
         }
