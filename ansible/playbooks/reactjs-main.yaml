@@ -42,7 +42,7 @@
     # ansible-react.akasdev.com 3004
     - name: Generate Reverse Proxy Config and HTTPS 
       become: true 
-      ansible.builtin.script: ../scripts/auto-add-domain.sh {{domain_name}} {{app_port}}
+      script: ../scripts/auto-add-domain.sh {{domain_name}} {{app_port}}
       args:
         executable: /bin/bash  
       register: script_result

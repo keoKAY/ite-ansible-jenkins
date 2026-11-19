@@ -39,6 +39,7 @@ pipeline{
 
         stage("ANSIBLE-Deploy"){
             steps{
+                // for username , use from credential for more secured approach !
                 dir('ansible'){
                     sh """
                     ansible-playbook playbooks/reactjs-main.yaml -e "new_img=lyvanna544/${FULL_IMG}"
