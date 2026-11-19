@@ -27,10 +27,11 @@
     - name: Check New Image Name 
       debug: 
         msg: "New Image is {{new_img }}"
-    - name: Update Image Name 
-      command: 'yq -i .services.reactjs-svc.image={{new_img}} docker-compose.yaml'
-      args: 
-        chdir: "{{project_dir}}"   
+    - name: Update Image Name
+      command: >
+        yq -i '.services.reactjs-svc.image = "{{ new_img }}"' docker-compose.yaml
+      args:
+        chdir: "{{ project_dir }}" 
     - name: Start our service 
       command: "docker compose up -d"
       args: 
