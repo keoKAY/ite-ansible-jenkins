@@ -1,0 +1,41 @@
+pipeline{
+    agent any 
+    environment{
+        GIT_URL="https://github.com/keoKAY/reactjs-devop8-template"
+        IMG_NAME="ansible-react"
+        VERSION="v1.0.${env.BUILD_NUMBER}"
+        FULL_IMG="${IMAGE_NAME}:${VERSION}"
+        DOCKERFILE="prod.Dockerfile"
+    }
+    stages{
+        stage("Git Checkout"){
+            git "${GIT_URL}"
+        }
+        stage("Build Image"){
+            steps{
+                sh """
+                docker build -t ${FULL_IMAGE} -f ${DOCKERFILE} . 
+                """
+            }
+        }
+        stage("Dockerhub"){
+            withCredentials([usernamePassword(credentialsId: 'DH_STAG',
+             passwordVariable: 'PASS',
+              usernameVariable: 'USER')]) {
+                sh """
+                    docker login -u ${USER} -p ${PASS} 
+                    docker tag ${FULL_IMG} ${USER}/${FULL_IMG}
+                    docker push ${USER}/${FULL_IMG} 
+                """
+            }
+        } 
+
+        // stage("ANS-Deploy"){
+        //     steps{
+        //         sh """
+
+        //         """
+        //     }
+        // } 
+    }
+}
