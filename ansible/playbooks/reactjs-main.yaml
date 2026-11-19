@@ -19,6 +19,7 @@
 
     # sed vs yq 
     - name: Install yq with classic confinement
+      become: true 
       community.general.snap:
         name: yq
         classic: true
