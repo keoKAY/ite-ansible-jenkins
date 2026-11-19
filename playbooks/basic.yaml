@@ -1,0 +1,32 @@
+- name: Basic Playbooks 
+  hosts: stag-server
+  become: true 
+  vars_files: 
+    - ../vars/demo-vars.yaml
+
+  tasks: 
+    - name: Debug Variables 
+      debug: 
+        msg: "Linux User: {{user.username}} , Datbase User: {{ database.username }}"
+    - name: Update APT 
+      apt: 
+        update_cache: true 
+      when: false 
+    - name: Install Common Packages 
+      apt: 
+        name: 
+          - nginx 
+          - tree 
+          - fish 
+        state: present
+      when: false
+    - name: Create a New User
+      user: 
+        name: "{{ user.username }}" 
+        password: "{{ user.password | password_hash('sha512') }}"
+        shell: /bin/bash 
+        createhome: yes 
+        groups:
+          - sudo 
+          - docker 
+      when: false 
