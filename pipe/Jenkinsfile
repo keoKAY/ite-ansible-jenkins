@@ -9,7 +9,9 @@ pipeline{
     }
     stages{
         stage("Git Checkout"){
-            git "${GIT_URL}"
+            steps{
+              git "${GIT_URL}"
+            }
         }
         stage("Build Image"){
             steps{
@@ -19,6 +21,7 @@ pipeline{
             }
         }
         stage("Dockerhub"){
+            steps{
             withCredentials([usernamePassword(credentialsId: 'DH_STAG',
              passwordVariable: 'PASS',
               usernameVariable: 'USER')]) {
@@ -27,6 +30,7 @@ pipeline{
                     docker tag ${FULL_IMG} ${USER}/${FULL_IMG}
                     docker push ${USER}/${FULL_IMG} 
                 """
+            }
             }
         } 
 
